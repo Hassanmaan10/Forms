@@ -17,6 +17,7 @@ import PersonalInfoSection from "./formsections/PersonalInfoSection";
 import PasswordSection from "./formsections/PasswordSection";
 import PhoneSection from "./formsections/PhoneSection";
 import { useEffect, useState } from "react";
+import FormCardSkeleton from "./formcardskeleton/FormCardSkeleton";
 
 const formSchema = z
   .object({
@@ -62,7 +63,9 @@ export default function FormCard() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true);
+    const SKELETON_MS = 1200; // 1.2s, tweak as you like
+    const t = setTimeout(() => setIsLoaded(true), SKELETON_MS);
+    return () => clearTimeout(t); // cleanup if component unmounts quickly
   }, []);
 
   const form = useForm<FormValues>({
@@ -82,9 +85,12 @@ export default function FormCard() {
   }
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center">
+        <FormCardSkeleton />
+      </div>
+    );
   }
-  console.log(setIsLoaded);
 
   return (
     <Card className="w-full max-w-md">
