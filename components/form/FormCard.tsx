@@ -16,6 +16,7 @@ import { z } from "zod";
 import PersonalInfoSection from "./formsections/PersonalInfoSection";
 import PasswordSection from "./formsections/PasswordSection";
 import PhoneSection from "./formsections/PhoneSection";
+import { useEffect, useState } from "react";
 
 const formSchema = z
   .object({
@@ -58,6 +59,12 @@ const formSchema = z
 export type FormValues = z.infer<typeof formSchema>;
 
 export default function FormCard() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -73,6 +80,11 @@ export default function FormCard() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  console.log(setIsLoaded);
 
   return (
     <Card className="w-full max-w-md">
