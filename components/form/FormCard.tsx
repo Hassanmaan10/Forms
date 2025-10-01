@@ -8,18 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+
+import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
+import PersonalInfoSection from "./formsections/PersonalInfoSection";
+import PasswordSection from "./formsections/PasswordSection";
+import PhoneSection from "./formsections/PhoneSection";
 
 const formSchema = z
   .object({
@@ -59,8 +55,10 @@ const formSchema = z
     message: "Passwords do not match",
   });
 
+export type FormValues = z.infer<typeof formSchema>;
+
 export default function FormCard() {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstname: "",
@@ -70,12 +68,6 @@ export default function FormCard() {
       confirmpassword: "",
       phones: [{ number: "" }],
     },
-  });
-
-  const { control } = form;
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "phones",
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -93,117 +85,9 @@ export default function FormCard() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-            <div className="flex flex-row gap-6 ">
-              <FormField
-                control={form.control}
-                name="firstname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="First Name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastname"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Last Name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmpassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Confirm password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium">Phone numbers</h4>
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={() => append({ number: "" })}
-                >
-                  Add phone
-                </Button>
-              </div>
-
-              {fields.map((field, index) => (
-                <div
-                  key={field.id}
-                  className="grid grid-cols-1 sm:grid-cols-5 gap-3 rounded-lg border p-3"
-                >
-                  <FormField
-                    control={form.control}
-                    name={`phones.${index}.number`}
-                    render={({ field }) => (
-                      <FormItem className="sm:col-span-2">
-                        <FormLabel>Number</FormLabel>
-                        <FormControl>
-                          <Input placeholder="+961 3 123 456" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <div className="flex items-end">
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      onClick={() => remove(index)}
-                      className="w-full"
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <PersonalInfoSection />
+            <PasswordSection />
+            <PhoneSection />
             <Button
               type="submit"
               className="w-full bg-purple-600 hover:bg-purple-500"
