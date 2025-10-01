@@ -34,7 +34,12 @@ export default function RHFInput({
         <FormItem className={className}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} type={type} {...field} />
+            <Input
+              placeholder={placeholder}
+              type={type}
+              {...field}
+              className=""
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

@@ -2,14 +2,7 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormValues } from "../FormCard";
 import { Button } from "@/components/ui/button";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import RHFInput from "./RHFInput";
 
 const PhoneSection = () => {
   const { control } = useFormContext<FormValues>();
@@ -35,27 +28,22 @@ const PhoneSection = () => {
         {fields.map((field, index) => (
           <div
             key={field.id}
-            className="grid grid-cols-1 sm:grid-cols-5 gap-3 rounded-lg border p-3"
+            className="grid grid-cols-1 sm:grid-cols-5 items-end gap-3 rounded-lg border p-3"
           >
-            <FormField
-              control={control}
+            <RHFInput
               name={`phones.${index}.number`}
-              render={({ field }) => (
-                <FormItem className="sm:col-span-2">
-                  <FormLabel>Number</FormLabel>
-                  <FormControl>
-                    <Input placeholder="+961 3 123 456" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label="Number"
+              placeholder="+961 3 123 456"
+              type="tel"
+              className="sm:col-span-4 w-full" // <-- span 4 cols, fill width
             />
-            <div className="flex items-end">
+
+            <div className="sm:col-span-1 flex justify-end">
               <Button
                 type="button"
                 variant="destructive"
                 onClick={() => remove(index)}
-                className="w-full"
+                className="w-full sm:w-auto" // full width on mobile, auto on desktop
               >
                 Delete
               </Button>
