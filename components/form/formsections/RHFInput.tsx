@@ -8,10 +8,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { Path, useFormContext } from "react-hook-form";
+import { FormValues } from "../FormCard";
 
 type RHFInputProps = {
-  name: string;
+  name: Path<FormValues>;
   label: string;
   placeholder: string;
   type: string;
