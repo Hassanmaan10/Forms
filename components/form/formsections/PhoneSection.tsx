@@ -18,7 +18,7 @@ const PhoneSection = () => {
           <h4 className="text-sm font-medium">Phone numbers</h4>
           <Button
             type="button"
-            className="rounded-full bg-purple-600"
+            variant="customRounded"
             onClick={() => append({ number: "" })}
           >
             +
@@ -41,7 +41,7 @@ const PhoneSection = () => {
             <div className="sm:col-span-1 flex justify-end">
               <Button
                 type="button"
-                variant="destructive"
+                variant="customDelete"
                 onClick={() => remove(index)}
                 className="w-full sm:w-auto" // full width on mobile, auto on desktop
               >

@@ -39,7 +39,7 @@ export default function RHFInput({
               placeholder={placeholder}
               type={type}
               {...field}
-              className=""
+              className="hover:bg-custom-50"
             />
           </FormControl>
           <FormMessage />

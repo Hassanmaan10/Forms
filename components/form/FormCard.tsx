@@ -84,7 +84,7 @@ export default function FormCard() {
   }
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md ">
       <CardHeader>
         <CardTitle>Register</CardTitle>
         <CardDescription>
@@ -100,10 +100,7 @@ export default function FormCard() {
             <Suspense fallback={<PhoneSectionSkeleton />}>
               <PhoneSectionLazy />
             </Suspense>
-            <Button
-              type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-500"
-            >
+            <Button type="submit" className="w-full" variant="custom">
               Login
             </Button>
           </form>

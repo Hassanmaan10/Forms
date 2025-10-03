@@ -5,7 +5,7 @@ import RHFInput from "./RHFInput";
 export default function PersonalInfoSection() {
   return (
     <section>
-      <div className="flex flex-row gap-6 mb-3">
+      <div className="flex flex-col gap-6 mb-3 xs:flex-row">
         <RHFInput
           name="firstname"
           label="First name"
