@@ -15,9 +15,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import PersonalInfoSection from "./formsections/PersonalInfoSection";
 import PasswordSection from "./formsections/PasswordSection";
-import PhoneSection from "./formsections/PhoneSection";
-import { useEffect, useState } from "react";
-import FormCardSkeleton from "./formcardskeleton/FormCardSkeleton";
+import { lazy, Suspense } from "react";
+import PhoneSectionSkeleton from "./formcardskeleton/PhoneSectionSkeleton";
 
 const formSchema = z
   .object({
@@ -59,15 +58,15 @@ const formSchema = z
 
 export type FormValues = z.infer<typeof formSchema>;
 
+const PhoneSectionLazy = lazy(async () => {
+  // DEV-ONLY delay so you can SEE the fallback
+  if (process.env.NODE_ENV === "development") {
+    await new Promise((r) => setTimeout(r, 1200));
+  }
+  return import("./formsections/PhoneSection");
+});
+
 export default function FormCard() {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const SKELETON_MS = 1200; // 1.2s, tweak as you like
-    const t = setTimeout(() => setIsLoaded(true), SKELETON_MS);
-    return () => clearTimeout(t); // cleanup if component unmounts quickly
-  }, []);
-
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,14 +83,6 @@ export default function FormCard() {
     console.log(values);
   }
 
-  if (!isLoaded) {
-    return (
-      <div className="flex items-center justify-center">
-        <FormCardSkeleton />
-      </div>
-    );
-  }
-
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
@@ -105,7 +96,10 @@ export default function FormCard() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <PersonalInfoSection />
             <PasswordSection />
-            <PhoneSection />
+            {/* Only the Phone section is lazy; while it loads, show a section skeleton */}
+            <Suspense fallback={<PhoneSectionSkeleton />}>
+              <PhoneSectionLazy />
+            </Suspense>
             <Button
               type="submit"
               className="w-full bg-purple-600 hover:bg-purple-500"
