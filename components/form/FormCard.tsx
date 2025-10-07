@@ -86,8 +86,8 @@ export default function FormCard() {
   return (
     <Card className="w-full max-w-md ">
       <CardHeader>
-        <CardTitle>Register</CardTitle>
-        <CardDescription>
+        <CardTitle className="font-mono font-bold">Register</CardTitle>
+        <CardDescription className="font-sans font-bold">
           Create Your account. it&apos;s free and only take a minute
         </CardDescription>
       </CardHeader>
