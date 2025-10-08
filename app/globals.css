@@ -6,7 +6,7 @@
 @theme inline {
   /* --- Fonts --- */
   --font-sans: var(--font-sans); /* From next/font/google */
-  --font-mono: var(--font-mono);
+  --font-pw: var(--font-pw);
 
   /* --- Screens --- */
   --breakpoint-xs: 30rem;

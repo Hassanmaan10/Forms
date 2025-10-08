@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import FormCardClient from "./FormCardClient";
+import FormCardClient from "../../components/form/FormCardClient";
 
 export const metadata: Metadata = {
   title: "Register",

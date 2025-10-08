@@ -1,26 +1,72 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+// import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { localhostUrl } from "@/lib/config";
 
-const plexSans = IBM_Plex_Sans({
+export const pwDE = localFont({
+  src: [
+    {
+      path: "../public/fonts/PlaywriteDEGrundGuides-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/PlaywriteDEGrundGuides-Regular.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pw",
+  display: "swap",
+});
+
+export const plexSans = localFont({
+  src: [
+    {
+      path: "../public/fonts/sans/IBMPlexSans.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/sans/IBMPlexSans.ttf",
+      weight: "500",
+      style: "normal",
+    },
+
+    {
+      path: "../public/fonts/sans/IBMPlexSans.ttf",
+      weight: "600",
+      style: "normal",
+    },
+
+    {
+      path: "../public/fonts/sans/IBMPlexSans.ttf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
+// const plexSans = IBM_Plex_Sans({
+//   variable: "--font-sans",
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700"],
+//   display: "swap",
+// });
 
-const siteUrl = "http://localhost:3000";
+// const plexMono = IBM_Plex_Mono({
+//   variable: "--font-mono",
+//   subsets: ["latin"],
+//   weight: ["400", "500", "600", "700"],
+//   display: "swap",
+// });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(localhostUrl),
   title: {
     default: "PureLife Water",
     template: "%s | PureLife Water",
@@ -45,7 +91,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${plexSans.variable} ${plexMono.variable}`}>
+      <body className={`${plexSans.variable} ${pwDE.variable}`}>
         {children}
       </body>
     </html>

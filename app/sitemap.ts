@@ -1,16 +1,16 @@
+import { localhostUrl } from "@/lib/config";
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${siteUrl}/`,
+      url: `${localhostUrl}/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: `${siteUrl}/register`,
+      url: `${localhostUrl}/register`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.6,
