@@ -1,5 +1,6 @@
 import Userlist from "@/components/serverfetch/user-list";
 import { Suspense } from "react";
+import Serverloading from "./loading";
 
 export default async function serverFetch() {
   return (
@@ -8,7 +9,7 @@ export default async function serverFetch() {
         Users (Server Fetch)
       </h1>
 
-      <Suspense>
+      <Suspense fallback={<Serverloading />}>
         <Userlist />
       </Suspense>
     </div>

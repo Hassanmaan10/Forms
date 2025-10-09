@@ -1,6 +1,7 @@
 import Userlist from "@/components/clientfetch/user-list";
 import { getData } from "@/lib/utils";
 import { Suspense } from "react";
+import Clientloading from "./loading";
 
 export default function clientFetch() {
   const userPromise = getData();
@@ -10,7 +11,7 @@ export default function clientFetch() {
         Users (Client Fetch)
       </h1>
 
-      <Suspense>
+      <Suspense fallback={<Clientloading />}>
         <Userlist userPromise={userPromise} />
       </Suspense>
     </div>

@@ -1,7 +1,8 @@
 "use client";
+import { Props } from "@/lib/utils";
 import { use } from "react";
 
-export default function Userlist({ userPromise }) {
+export default function Userlist({ userPromise }: Props) {
   const user = use(userPromise);
   return (
     <ul className="mt-8 max-w-md mx-auto overflow-hidden rounded-2xl border border-neutral-200 bg-white/70 shadow-sm backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/60">

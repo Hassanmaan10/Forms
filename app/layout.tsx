@@ -66,7 +66,7 @@ export const plexSans = localFont({
 // });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(localhostUrl),
+  metadataBase: new URL(localhostUrl ?? ""),
   title: {
     default: "PureLife Water",
     template: "%s | PureLife Water",
