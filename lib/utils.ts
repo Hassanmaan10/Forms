@@ -15,8 +15,17 @@ export type Props = {
 };
 
 export async function getData() {
-  const respone = await fetch("https://jsonplaceholder.typicode.com/users");
-  const users = await respone.json();
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  return users;
+  try {
+    const respone = await fetch("https://jsonplaceholder.typicode.com/users");
+    if (!respone.ok) {
+      throw new Error(`HTTP ${respone.status}`);
+    }
+
+    const users = await respone.json();
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return users;
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : "Unknown error";
+    throw new Error(`Failed to load users: ${msg}`);
+  }
 }
